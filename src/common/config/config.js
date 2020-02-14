@@ -9,11 +9,18 @@ export default {
         submenu: [
           {
             icon: "el-icon-s-home",
-            name: "后台首页"
+            name: "后台首页",
+            pathName: "/index"
           },
           {
+						icon: "el-icon-picture",
+						name: "相册管理",
+						pathName:"/image"
+					},
+          {
             icon: "el-icon-s-claim",
-            name: "商品列表"
+            name: "商品列表",
+            pathName: "/shop/goods/list"
           }
         ]
       },
@@ -23,12 +30,13 @@ export default {
         submenu: [
           {
             icon: "el-icon-s-home",
-            name: "商品后台"
+            name: "商品列表",
+            pathName: "/shop/goods/list"
           },
-          {
-            icon: "el-icon-s-claim",
-            name: "商品列表"
-          }
+          // {
+          //   icon: "el-icon-s-claim",
+          //   name: "商品列表"
+          // }
         ]
       },
       { name: "订单" },

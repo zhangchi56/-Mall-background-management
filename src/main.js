@@ -10,7 +10,10 @@ import store from './store'
 import $conf from '@/common/config/config.js'
 Vue.prototype.$conf = $conf
 
-
+// const originalPush = Router.prototype.push
+// Router.prototype.push = function push(location) {
+//   return originalPush.call(this, location).catch(err => err)
+// }
 
 
 Vue.use(ElementUI);

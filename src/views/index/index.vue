@@ -1,6 +1,6 @@
 <template>
   <div id="index">
-
+    后台首页
   </div>
 </template>
 
@@ -8,8 +8,10 @@
 export default {
   name: "Index",
   data() {
-
-  }
+    return {
+      
+    }
+  },
 };
 </script>
 
