@@ -45,7 +45,7 @@
             </el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main style="height:1000px">
+        <el-main>
           <div v-if="bran.length>0">
             <el-breadcrumb separator-class="el-icon-arrow-right" class="layout-el-breadcrumb">
               <el-breadcrumb-item
@@ -55,7 +55,8 @@
               >{{item.title}}</el-breadcrumb-item>
             </el-breadcrumb>
           </div>
-          //回到顶部按钮
+
+          <!-- 回到顶部按钮 -->
           <el-backtop target=".el-main" :bottom="100">
             <div
               style="{
@@ -69,13 +70,9 @@
               }"
             >UP</div>
           </el-backtop>
-        <ul>
-        <li v-for="i in 100" :key="i">{{i}}</li>
-        </ul>
+          
           <!-- 主内容 -->
           <router-view></router-view>
-
-          <!-- <p>zzzzzzzzzzz</p> -->
         </el-main>
       </el-container>
     </el-container>
@@ -94,7 +91,7 @@ export default {
         "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
       navBar: {}, //主要导航栏
       bran: [], //面包屑导航栏
-      // bottom : ''
+
     };
   },
   created() {
