@@ -1,78 +1,30 @@
 <template>
   <div id="index">
     <!-- 后台首页 -->
-    <el-row :gutter="20">
-      <el-col :span="6">
-        <el-card shadow="hover">
-          <div class="index-el-card">
-
-            <i class="el-icon-user-solid"></i>
-
-            <div class="desc">
-              <h4 style="text-align: center;">30</h4>
-              <small>关注人数（个）</small>
-            </div>
-
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card shadow="hover">鼠标悬浮时显示</el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card shadow="hover">鼠标悬浮时显示</el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card shadow="hover">鼠标悬浮时显示</el-card>
-      </el-col>
-    </el-row>
+    <!-- 顶部导航 -->
+    <index-top-bar></index-top-bar>
+    <!-- 店铺、订单提示 | 统计图 -->
+    <index-store-data></index-store-data>
+    <!-- 销售情况统计和单排销售排名 -->
+    <index-sell-data></index-sell-data>
   </div>
 </template>
 
 <script>
+import indexTopBar from "views/index/indexTopBar";
+import indexStoreData from "views/index/indexStoreData";
+import indexSellData from "views/index/indexSellData";
 export default {
   name: "Index",
-  data() {
-    return {};
+
+  components: {
+    indexTopBar,
+    indexStoreData,
+    indexSellData
   }
 };
 </script>
 
 <style scope>
-.index-el-card {
-  display: flex;
-  background-color: pink;
-  justify-content: center;
-  align-items: center;
-  /* text-align: left; */
-  
-}
-.index-el-card>i{
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  color: blue;
-  font-size: 24px;
-}
-
-.index-el-card>.desc{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  /* flex-wrap: wrap; */
-  /* width: 40px; */
-  /* height:40px; */
-  /* line-height: 40px; */
-}
-.index-el-card>.desc>h4{
-  /* height:40px; */
-  /* line-height: 40px; */
-  margin-bottom: 0;
-}
-.index-el-card>.desc>small{
-  height:40px;
-  line-height: 40px;
-}
-
 
 </style>

@@ -1,6 +1,8 @@
 <template>
   <div id="layout">
-    <el-container style="  position:absolute;left: 0;right: 0;top: 0;bottom: 0;overflow:hidden">
+    <!-- 主布局 -->
+    <el-container style="position: absolute;left: 0;top: 0;bottom: 0;right: 0; overflow: hidden;">
+      <!-- 头部布局 -->
       <el-header class="layout-el-header">
         <a href>
           <h5>{{$conf.login}}</h5>
@@ -28,8 +30,11 @@
           </el-submenu>
         </el-menu>
       </el-header>
-      <el-container>
+
+      <el-container style="height: 100%;padding-bottom:20px;">
+        <!-- 侧边栏布局 -->
         <el-aside width="200px">
+          
           <el-menu
             :default-active="slideMenuActive"
             class="el-menu-vertical-demo"
@@ -45,7 +50,12 @@
             </el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main>
+
+        <!-- 主布局 -->
+        <el-main class="bg-light" style="padding-bottom: 60px;position: relative;">
+          <ul></ul>
+
+          <!-- 面包屑导航 -->
           <div v-if="bran.length>0">
             <el-breadcrumb separator-class="el-icon-arrow-right" class="layout-el-breadcrumb">
               <el-breadcrumb-item
@@ -70,7 +80,7 @@
               }"
             >UP</div>
           </el-backtop>
-          
+
           <!-- 主内容 -->
           <router-view></router-view>
         </el-main>
@@ -90,8 +100,7 @@ export default {
       circleUrl:
         "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
       navBar: {}, //主要导航栏
-      bran: [], //面包屑导航栏
-
+      bran: [] //面包屑导航栏
     };
   },
   created() {
@@ -195,6 +204,9 @@ export default {
 </script>
 
 <style scope>
+/* #layout {
+  height: 100%;
+} */
 .el-header,
 .el-footer {
   background-color: rgb(84, 92, 100);
@@ -214,7 +226,6 @@ export default {
   background-color: #e9eef3;
   color: #333;
   text-align: center;
-  line-height: 160px;
 }
 .layout-el-header {
   display: flex;
@@ -232,7 +243,7 @@ export default {
 .layout-el-breadcrumb {
   line-height: 55px;
   margin: -20px;
-  border-bottom: 1px #606266 solid;
+  border-bottom: 1px #b1b1b1 solid;
   box-sizing: border-box;
   padding-left: 20px;
 }
