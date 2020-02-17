@@ -15,7 +15,7 @@ export default {
           {
 						icon: "el-icon-picture",
 						name: "相册管理",
-						pathName:"/image"
+						pathName:"/image/index"
 					},
           {
             icon: "el-icon-s-claim",

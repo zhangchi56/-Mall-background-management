@@ -17,7 +17,7 @@ let routes = [
         meta:{title:'商品列表'},
         component: () => import('views/shop/goods/list.vue'),
         children:[{
-          path:'/image',
+          path:'/image/index',
           name:'image',
           meta:{title:'相册管理'}
         }]
