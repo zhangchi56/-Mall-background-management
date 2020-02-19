@@ -16,12 +16,13 @@ let routes = [
         name: 'shop_goods_list',
         meta:{title:'商品列表'},
         component: () => import('views/shop/goods/list.vue'),
-        children:[{
-          path:'/image/index',
-          name:'image',
-          meta:{title:'相册管理'}
-        }]
       },
+      {
+        path:'/image/index',
+        name:'image',
+        meta:{title:'相册管理'},
+        component: () => import('views/image/index.vue'),
+      }
       
     ]
   },

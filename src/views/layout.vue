@@ -26,7 +26,8 @@
               个人中心
               <el-avatar :size="30" :src="circleUrl"></el-avatar>
             </template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
+            <el-menu-item index="100-1">修改资料</el-menu-item>
+            <el-menu-item index="100-2">退出登录</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-header>
@@ -34,7 +35,6 @@
       <el-container style="height: 100%;padding-bottom:20px;">
         <!-- 侧边栏布局 -->
         <el-aside width="200px">
-          
           <el-menu
             :default-active="slideMenuActive"
             class="el-menu-vertical-demo"
@@ -53,7 +53,6 @@
 
         <!-- 主布局 -->
         <el-main class="bg-light" style="padding-bottom: 60px;position: relative;">
-          <ul></ul>
 
           <!-- 面包屑导航 -->
           <div v-if="bran.length>0">
@@ -160,7 +159,12 @@ export default {
     },
     //导航栏点击事件
     handleSelect(key, keyPath) {
-      // console.log(key, keyPath);
+      // return console.log(key, keyPath);
+      if(key === '100-1'){
+        return console.log('修改资料成功')
+      }else if(key == '100-2'){
+        return console.log('退出登录成功')
+      }
       this.navBar.active = key;
 
       //顶部导航栏点击
@@ -246,5 +250,6 @@ export default {
   border-bottom: 1px #b1b1b1 solid;
   box-sizing: border-box;
   padding-left: 20px;
+  background-color: #fff;
 }
 </style>

@@ -15,7 +15,7 @@
           </div>
           <el-row :gutter="10">
             <el-col
-              :span="item.list.length|listNum"
+              :span="item.list.length | listNum"
               v-for="(listItem, index) in item.list"
               :key="index"
             >
@@ -25,7 +25,7 @@
                 style="line-height:10px;background;"
               >
                 <h5>{{listItem.value}}</h5>
-                <div style="font-size:small;color:#606266">{{listItem.name}}</div>
+                <div style="font-size:small;color:#606266;white-space: nowrap;">{{listItem.name}}</div>
               </el-card>
             </el-col>
           </el-row>

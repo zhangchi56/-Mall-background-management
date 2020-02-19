@@ -5,9 +5,9 @@
         <el-card shadow="hover">
           <div class="index-el-card">
             <i :class="[item.icon,item.color]"></i>
-            <div class="desc">
+            <div class="desc" style="overflow:hidden;">
               <h4 style="text-align: center;">{{item.num}}</h4>
-              <small>{{item.desc}}</small>
+              <small style="white-space: nowrap; text-overflow: ellipsis; overflow:hidden;">{{item.desc}}</small>
             </div>
           </div>
         </el-card>
