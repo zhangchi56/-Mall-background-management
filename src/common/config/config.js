@@ -21,6 +21,11 @@ export default {
             icon: "el-icon-s-claim",
             name: "商品列表",
             pathName: "/shop/goods/list"
+          },
+          {
+            icon: "el-icon-s-claim",
+            name: "测试专用",
+            pathName: "/testa"
           }
         ]
       },

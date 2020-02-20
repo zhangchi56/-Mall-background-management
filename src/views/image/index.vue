@@ -2,7 +2,7 @@
   <div class="index">
     <el-container class="main-el-container">
       <!-- 图片头部搜素区域 -->
-      <el-header class="el-header border-bottom">
+      <el-header class="el-header border-bottom" style="line-height:60px">
         <div class="d-flex">
           <div class="el-header-right mr-auto">
             <el-select
@@ -26,7 +26,18 @@
           </div>
 
           <div class="el-header-left">
-            <el-button type="danger" size="medium" @click="imageDelAll" v-if="chooseList.length">批量删除</el-button>
+            <el-button
+              type="warning"
+              size="medium"
+              @click="unChoose"
+              v-if="chooseList.length"
+            >取消选中</el-button>
+            <el-button
+              type="danger"
+              size="medium"
+              @click="imageDel({all:true})"
+              v-if="chooseList.length"
+            >批量删除</el-button>
             <el-button type="primary" size="medium" @click="openAlbumModel()">创建相册</el-button>
             <el-button type="primary" size="medium" @click="uploadModel = true">上传图片</el-button>
           </div>
@@ -106,7 +117,7 @@
                         size="mini"
                         class="p-2"
                         icon="el-icon-delete"
-                        @click="imageDel(item,index)"
+                        @click="imageDel({index})"
                       ></el-button>
                     </el-button-group>
                   </div>
@@ -116,7 +127,30 @@
           </el-main>
         </el-container>
       </el-container>
-      <el-footer>底部</el-footer>
+
+      <!-- 底部区域 -->
+      <el-footer class="border-top d-flex align-items-center px-0">
+        <div
+          style="width: 200px; flex-shrink:0"
+          class="h-100 d-flex align-items-center justify-content-center border-right"
+        >
+          <el-button-group>
+            <el-button size="mini">上一页</el-button>
+            <el-button size="mini">下一页</el-button>
+          </el-button-group>
+        </div>
+        <div class="px-2">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[100, 200, 300, 400]"
+          :page-size="100"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400"
+        ></el-pagination>
+        </div>
+      </el-footer>
     </el-container>
 
     <!-- 修改|创建相册模态框 -->
@@ -159,8 +193,7 @@
     </el-dialog>
 
     <!-- 图片大图查看模态框 -->
-
-    <el-dialog :visible.sync="previewModel" style="width:100%;top:3vh">
+    <el-dialog :visible.sync="previewModel" style="width:100%;">
       <div style="margin:-60px -20px -30px -20px">
         <img :src="previewUrl" style="width:100%;" />
       </div>
@@ -191,7 +224,8 @@ export default {
       imageList: [],
       previewUrl: "",
       //选中的数组
-      chooseList: []
+      chooseList: [],
+      currentPage: 1
     };
   },
   components: {
@@ -340,14 +374,30 @@ export default {
         });
     },
     //删除图片
-    imageDel(item, index) {
-      this.$confirm("是否删除改图片?", "提示", {
+    imageDel(obj) {
+      // console.log("iiiiiiiiiiiiiiii")
+      this.$confirm(obj.all ? "是否删除选中图片" : "是否删除改图片?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
-          this.imageList.splice(index, 1);
+          // console.log("1231321321312")
+          if (obj.all) {
+            // console.log("1231321321312")
+            let list = this.imageList.filter(img => {
+              return !this.chooseList.some(c => {
+                return c.id === img.id;
+              });
+            });
+            this.imageList = list;
+            this.chooseList = [];
+            console.log("删除选中");
+          } else {
+            console.log("1231321321312");
+            this.imageList.splice(obj.index, 1);
+          }
+
           this.$message({
             type: "success",
             message: "删除成功!"
@@ -374,42 +424,60 @@ export default {
         item.checkOrder = this.chooseList.length;
         //修改选中状态
         item.ischeck = !item.ischeck;
-        return
+        return;
       }
       //取消选中
       //找到chooseList中的索引
-      let i = this.chooseList.findIndex(v=>v.id === item.id)
-      console.log(i)
-      if(i===-1) return;
+      let i = this.chooseList.findIndex(v => v.id === item.id);
+      console.log(i);
+      if (i === -1) return;
       //重新计算序号
-      let length = this.chooseList.length
+      let length = this.chooseList.length;
       //取消选中中间部分
-      if(i+1 < length){
+      if (i + 1 < length) {
         //重新计算imageList 选中的序号
-        for(var j = i; j < length; j++){
-          let no = this.imageList.findIndex(v=>v.id === this.chooseList[j].id)
-          if(no >-1){
-            this.imageList[no].checkOrder--
+        for (var j = i; j < length; j++) {
+          let no = this.imageList.findIndex(
+            v => v.id === this.chooseList[j].id
+          );
+          if (no > -1) {
+            this.imageList[no].checkOrder--;
           }
         }
       }
       //删除
-      this.chooseList.splice(i,1)
+      this.chooseList.splice(i, 1);
       //修改状态
-      item.ischeck = false
-      //重置序号 发现这一步多余了  
+      item.ischeck = false;
+      //重置序号 发现这一步多余了
       // item.checkOrder = 0    //等出了问题在来解开这
     },
-    //批量删除
-    imageDelAll(){
-      let list = this.imageList.filter(img=>{
-        return !this.chooseList.some(c=>{
-          return c.id === img.id
+        //取消选中图片
+    unChoose(){
+
+      //找到选中的所有图片
+      this.imageList.forEach(img=>{
+        let i = this.chooseList.findIndex(item=>{
+          return item.id === img.id
         })
+        
+        if(i > -1){
+          //取消选中样式，选中排序归零
+          img.ischeck = false
+          img.checkOrder = 0
+          //从chooseList中移出
+          this.chooseList.splice(i,1)
+        }
       })
-      this.imageList = list
-      this.chooseList = []
-    }
+    },
+    //分页点击
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+
   }
 };
 </script>
@@ -420,7 +488,7 @@ export default {
   background-color: #b3c0d1;
   /* color: #333; */
   text-align: center;
-  /* line-height: 60px; */
+  line-height: 0px;
 }
 .main-el-container {
   position: absolute;
@@ -443,6 +511,7 @@ export default {
   bottom: 60px;
   left: 200px;
   right: 0;
+  display: flex;
 }
 .el-header {
   background-color: #f8f9fa;

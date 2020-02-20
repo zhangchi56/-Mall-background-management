@@ -22,6 +22,12 @@ let routes = [
         name:'image',
         meta:{title:'相册管理'},
         component: () => import('views/image/index.vue'),
+      },
+      {
+        path:'/testa',
+        name:'testa',
+        meta:{title:'相册管理'},
+        component: () => import('views/testa/testa.vue'),
       }
       
     ]

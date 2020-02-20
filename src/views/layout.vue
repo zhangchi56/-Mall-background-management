@@ -229,7 +229,6 @@ export default {
 .el-main {
   background-color: #e9eef3;
   color: #333;
-  text-align: center;
 }
 .layout-el-header {
   display: flex;
@@ -245,11 +244,9 @@ export default {
   margin-bottom: 0;
 }
 .layout-el-breadcrumb {
-  line-height: 55px;
   margin: -20px;
   border-bottom: 1px #b1b1b1 solid;
-  box-sizing: border-box;
-  padding-left: 20px;
+  padding: 20px;
   background-color: #fff;
 }
 </style>
