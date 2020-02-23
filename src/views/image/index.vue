@@ -524,9 +524,9 @@ export default {
   border-top-right-radius: 0;
   border-top: 0;
 }
-.activeAlbums {
+/* .activeAlbums { */
   /* color: #409eff !important;
   background-color: white !important;
   border-color: #c2e7b0 !important; */
-}
+/* } */
 </style>
