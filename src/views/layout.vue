@@ -55,7 +55,7 @@
         <el-main class="bg-light" style="padding-bottom: 60px;position: relative;">
 
           <!-- 面包屑导航 -->
-          <div v-if="bran.length>0">
+          <div v-if="bran.length>0" style="margin-bottom:20px">
             <el-breadcrumb separator-class="el-icon-arrow-right" class="layout-el-breadcrumb">
               <el-breadcrumb-item
                 v-for="(item, index) in this.bran"

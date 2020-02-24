@@ -36,7 +36,7 @@ export default {
           {
             icon: "el-icon-s-home",
             name: "商品列表",
-            pathName: "/shop/goods/list"
+            pathName: "/shop/goods/create"
           },
           // {
           //   icon: "el-icon-s-claim",

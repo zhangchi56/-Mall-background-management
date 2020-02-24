@@ -1,12 +1,13 @@
 <template>
-  <div class="bg-white" style="margin: 20px -20px -20px -20px;padding:20px">
+  <div class="bg-white" style="margin: 0 -20px -20px;padding:0 20px 20px">
     <!-- 头部众多按钮条 -->
     <el-tabs v-model="tabIndex" @tab-click="handleClick">
       <el-tab-pane v-for="(tab, tabI) in tabbars" :key="tabI" :label="tab.name">
         <button-search placeholder="要搜索的商品名称" @search="searchEvent">
           <!--左边  -->
           <template #left>
-            <el-button type="success" size="mini">发布商品</el-button>
+            <router-link :to="{path:'/shop/goods/create'}"><el-button type="success" size="mini">发布商品</el-button></router-link>
+            
             <el-button type="warning" size="mini">恢复商品</el-button>
             <el-button type="danger" size="mini">批量删除</el-button>
             <el-button size="mini">上架</el-button>
