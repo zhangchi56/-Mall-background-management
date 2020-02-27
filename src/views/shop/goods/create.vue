@@ -53,6 +53,11 @@
               <el-button type="text">体积</el-button>
               <el-button type="text">重量</el-button>
             </el-form-item>
+
+            <!-- 规格设置 -->
+            <sku-table></sku-table>
+
+
           </el-form>
         </template>
       </el-tab-pane>
@@ -62,10 +67,6 @@
       <el-tab-pane label="商品详情">商品详情</el-tab-pane>
       <el-tab-pane label="折扣设置">折扣设置</el-tab-pane>
     </el-tabs>
-
-    <!-- <input type="text" @input="test($event)"> -->
-    <el-input type="number" @input="test($event)">
-      </el-input>
   </div>
 </template>
 
@@ -75,6 +76,7 @@ import { mapState, mapMutations } from "vuex";
 import baseCreate from "@/components/shop/create/base-create.vue";
 import singleAttrs from "@/components/shop/create/single-attrs.vue";
 import skuCard from "@/components/shop/create/sku/sku-card.vue";
+import skuTable from "@/components/shop/create/sku/sku-table.vue";
 export default {
   data() {
     return {
@@ -102,14 +104,15 @@ export default {
   components: {
     baseCreate,
     singleAttrs,
-    skuCard
+    skuCard,
+    skuTable
   },
   methods: {
-    test($event){
-      console.log($event)
+    test($event) {
+      console.log($event);
     },
-    test1($event){
-      console.log($event)
+    test1($event) {
+      console.log($event);
     },
     ...mapMutations(["vModelState", "addSkuCard"]),
     vModel(key, value) {

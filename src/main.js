@@ -6,6 +6,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue'
 import router from './router'
 import store from './store'
+//拖拽
+import VueDND from 'awe-dnd'
+Vue.use(VueDND)
 
 import $conf from '@/common/config/config.js'
 Vue.prototype.$conf = $conf

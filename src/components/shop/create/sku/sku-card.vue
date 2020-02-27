@@ -42,7 +42,15 @@
     <div class="card-body">
       <!-- 规格属性列表 -->
       <div class="d-flex align-items-center flex-wrap">
-        <sku-card-children :type="item.type" v-for="(item, index) in item.list" :key="index" :valueIndex="index" :cardIndex="cardIndex" :item="item"></sku-card-children>
+        <sku-card-children
+          :type="item.type"
+          v-for="(item2, index2) in list"
+          :key="index2"
+          :valueIndex="index2"
+          :cardIndex="cardIndex"
+          :item="item2"
+          v-dragging="{ item: item2, list: list, group:`skuItem${index}`  }"
+        ></sku-card-children>
       </div>
       <!-- 增加规格 -->
       <div class="mt-2">
@@ -58,7 +66,7 @@ import { mapState, mapMutations } from "vuex";
 import skuCardChildren from "./sku-card-children.vue";
 
 export default {
-  props:{
+  props: {
     item: Object,
     index: Number,
     total: Number,
@@ -66,7 +74,8 @@ export default {
   },
   data() {
     return {
-      form: {}
+      form: {},
+      list: this.item.list
     };
   },
   components: {
@@ -77,7 +86,8 @@ export default {
       "delSkuCard",
       "vModelSkuCard",
       "sortSkuCard",
-      "addSkuValue"
+      "addSkuValue",
+      "sortSkuValue"
     ]),
     vModel(key, index, value) {
       this.vModelSkuCard({ key, index, value });
@@ -88,9 +98,16 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.cardIndex)
-    
-  },
+    //拖拽结束时更新
+    this.$dragging.$on("dragend", e => {
+      if (e.group === "skuItem" + this.index) {
+        this.sortSkuValue({
+          index: this.index,
+          value: this.list
+        });
+      }
+    });
+  }
 };
 </script>
 

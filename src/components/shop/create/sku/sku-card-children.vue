@@ -4,7 +4,7 @@
       <!-- 颜色选择器 -->
       <el-color-picker size="mini" v-if="type === 1"></el-color-picker>
       <!-- 图片选择器 -->
-      <span class="btn btn-ligth border mr-2" v-else>
+      <span class="btn btn-ligth border mr-2" v-else @click="chooseImage">
         <i class="el-icon-plus"></i>
       </span>
     </div>
@@ -26,6 +26,7 @@
 <script type="text/javascript">
 import { mapMutations } from "vuex";
 export default {
+  inject: ['app'],
   props: {
     type: {
       type: Number,
@@ -61,13 +62,19 @@ export default {
         key,
         value
       })
+    },
+    //选择图片
+    chooseImage(){
+      this.app.shooseImage((res)=>{
+        console.log(res)
+      })
     }
   },
   mounted() {
-    console.log(this.item.name)
+    // console.log(this.item.name)
   },
   updated() {
-    console.log(this.item.name)
+    // console.log(this.item.name)
   },
   components: {}
 };
