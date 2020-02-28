@@ -103,13 +103,13 @@ export default {
     ]
   },
   getters: {
-    skuLabels(state){
-      return state.sku_card.filter(v=>{
+    skuLabels(state) {
+      return state.sku_card.filter(v => {
         return v.list.length > 0
       })
     },
     //获取表头
-    tableThs(state,getters) {
+    tableThs(state, getters) {
       let length = getters.skuLabels.length
       state.ths[0].colspan = length
       state.ths[0].rowspan = length > 0 ? 1 : 2

@@ -26,12 +26,7 @@
           </div>
 
           <div class="el-header-left">
-            <el-button
-              type="warning"
-              size="medium"
-              @click="unChoose"
-              v-if="chooseList.length"
-            >取消选中</el-button>
+            <el-button type="warning" size="medium" @click="unChoose" v-if="chooseList.length">取消选中</el-button>
             <el-button
               type="danger"
               size="medium"
@@ -100,26 +95,28 @@
                     >
                       <span class="small">{{item.name}}</span>
                     </div>
-                    <el-button-group class="p-2">
-                      <el-button
-                        size="mini"
-                        class="p-2"
-                        icon="el-icon-view"
-                        @click="previewImage(item)"
-                      ></el-button>
-                      <el-button
-                        size="mini"
-                        class="p-2"
-                        icon="el-icon-edit"
-                        @click="imageEdit(item,index)"
-                      ></el-button>
-                      <el-button
-                        size="mini"
-                        class="p-2"
-                        icon="el-icon-delete"
-                        @click="imageDel({index})"
-                      ></el-button>
-                    </el-button-group>
+                    <div class="p-2 text-center">
+                      <el-button-group>
+                        <el-button
+                          size="mini"
+                          class="p-2"
+                          icon="el-icon-view"
+                          @click="previewImage(item)"
+                        ></el-button>
+                        <el-button
+                          size="mini"
+                          class="p-2"
+                          icon="el-icon-edit"
+                          @click="imageEdit(item,index)"
+                        ></el-button>
+                        <el-button
+                          size="mini"
+                          class="p-2"
+                          icon="el-icon-delete"
+                          @click="imageDel({index})"
+                        ></el-button>
+                      </el-button-group>
+                    </div>
                   </div>
                 </el-card>
               </el-col>
@@ -140,15 +137,15 @@
           </el-button-group>
         </div>
         <div class="px-2">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
-        ></el-pagination>
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[100, 200, 300, 400]"
+            :page-size="100"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="400"
+          ></el-pagination>
         </div>
       </el-footer>
     </el-container>
@@ -221,8 +218,8 @@ export default {
       },
       uploadModel: false,
       previewModel: false,
-      imageList: [],
       previewUrl: "",
+      imageList: [],
       //选中的数组
       chooseList: [],
       currentPage: 1
@@ -452,23 +449,22 @@ export default {
       //重置序号 发现这一步多余了
       // item.checkOrder = 0    //等出了问题在来解开这
     },
-        //取消选中图片
-    unChoose(){
-
+    //取消选中图片
+    unChoose() {
       //找到选中的所有图片
-      this.imageList.forEach(img=>{
-        let i = this.chooseList.findIndex(item=>{
-          return item.id === img.id
-        })
-        
-        if(i > -1){
+      this.imageList.forEach(img => {
+        let i = this.chooseList.findIndex(item => {
+          return item.id === img.id;
+        });
+
+        if (i > -1) {
           //取消选中样式，选中排序归零
-          img.ischeck = false
-          img.checkOrder = 0
+          img.ischeck = false;
+          img.checkOrder = 0;
           //从chooseList中移出
-          this.chooseList.splice(i,1)
+          this.chooseList.splice(i, 1);
         }
-      })
+      });
     },
     //分页点击
     handleSizeChange(val) {
@@ -476,8 +472,7 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
-    },
-
+    }
   }
 };
 </script>
@@ -525,7 +520,7 @@ export default {
   border-top: 0;
 }
 /* .activeAlbums { */
-  /* color: #409eff !important;
+/* color: #409eff !important;
   background-color: white !important;
   border-color: #c2e7b0 !important; */
 /* } */

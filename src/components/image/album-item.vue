@@ -7,32 +7,35 @@
       @click.stop="$emit('change',index)"
     >
       <span class="mr-auto">{{item.name}}</span>
-      <span>
-        <el-dropdown>
-          <el-button size="mini" type="primary" class="album-el-button">
-            {{item.num}}
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </el-button>
-          <!-- 修改删除功能 -->
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item @click.stop.native="$emit('edit',{item,index})">修改</el-dropdown-item>
-            <el-dropdown-item @click.stop.native="$emit('del',index)">删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </span>
+      <el-button size="mini" type="primary" class="album-el-button" v-if="!showOptions">{{item.num}}</el-button>
+      <el-dropdown v-else>
+        <el-button size="mini" type="primary" class="album-el-button">
+          {{item.num}}
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </el-button>
+        <!-- 修改删除功能 -->
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.stop.native="$emit('edit',{item,index})">修改</el-dropdown-item>
+          <el-dropdown-item @click.stop.native="$emit('del',index)">删除</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </li>
   </div>
 </template>
 
 <script type="text/javascript">
 export default {
-  props:{
-    active:{
-      type:Boolean,
-      default:false
+  props: {
+    active: {
+      type: Boolean,
+      default: false
     },
-    item:Object,
-    index:Number
+    item: Object,
+    index: Number,
+    showOptions: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     return {};
@@ -42,5 +45,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

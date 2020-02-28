@@ -56,15 +56,17 @@
 
             <!-- 规格设置 -->
             <sku-table></sku-table>
-
-
           </el-form>
         </template>
       </el-tab-pane>
 
       <el-tab-pane label="商品属性">商品属性</el-tab-pane>
       <el-tab-pane label="媒体设置">媒体设置</el-tab-pane>
-      <el-tab-pane label="商品详情">商品详情</el-tab-pane>
+      <!-- 商品详情 -->
+      <el-tab-pane label="商品详情">
+        <!-- 富文本编辑器 -->
+        <tinymce ref="editor" v-model="msg" @onClick="onClick"></tinymce>
+      </el-tab-pane>
       <el-tab-pane label="折扣设置">折扣设置</el-tab-pane>
     </el-tabs>
   </div>
@@ -77,12 +79,15 @@ import baseCreate from "@/components/shop/create/base-create.vue";
 import singleAttrs from "@/components/shop/create/single-attrs.vue";
 import skuCard from "@/components/shop/create/sku/sku-card.vue";
 import skuTable from "@/components/shop/create/sku/sku-table.vue";
+
+import tinymce from "@/components/common/tinymce.vue";
 export default {
   data() {
     return {
       tabIndex: 0,
       form: {},
-      value: []
+      value: [],
+      msg: "Welcome to Use Tinymce Editor"
     };
   },
   computed: {
@@ -105,15 +110,10 @@ export default {
     baseCreate,
     singleAttrs,
     skuCard,
-    skuTable
+    skuTable,
+    tinymce
   },
   methods: {
-    test($event) {
-      console.log($event);
-    },
-    test1($event) {
-      console.log($event);
-    },
     ...mapMutations(["vModelState", "addSkuCard"]),
     vModel(key, value) {
       this.vModelState({ key, value });
@@ -123,6 +123,12 @@ export default {
     //加载数据
     handleClick(tab, event) {
       // console.log(tab.index);
+    },
+    //鼠标单击事件
+    onClick(e, editor) {
+      console.log("Element clicked");
+      console.log(e);
+      console.log(editor);
     }
   }
 };

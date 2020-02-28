@@ -4,9 +4,12 @@
       <!-- 颜色选择器 -->
       <el-color-picker size="mini" v-if="type === 1"></el-color-picker>
       <!-- 图片选择器 -->
-      <span class="btn btn-ligth border mr-2" v-else @click="chooseImage">
-        <i class="el-icon-plus"></i>
-      </span>
+      <template v-else>
+        <span v-if="!item.image" class="btn btn-ligth border mr-2" @click="chooseImage">
+          <i class="el-icon-plus"></i>
+        </span>
+        <img v-else :src="item.image" style="widht:40px;height:40px;cursor:pointer" @click="chooseImage"/>
+      </template>
     </div>
 
     <input
@@ -16,24 +19,27 @@
       style="width: 80px;font-size: 15px"
       @input="inputChange"
     />
-          <!-- @input="updateSkuValue({cardIndex,valueIndex,test,$event})" -->
-    <span class="btn btn-light p-0 position-absolute" style="line-height:1;right: -5px;top: -5px" @click="delSkuValue({cardIndex,valueIndex})">
+    <span
+      class="btn btn-light p-0 position-absolute"
+      style="line-height:1;right: -5px;top: -5px"
+      @click="delSkuValue({cardIndex,valueIndex})"
+    >
       <i class="el-icon-circle-close"></i>
     </span>
   </div>
 </template>
 
 <script type="text/javascript">
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
-  inject: ['app'],
+  inject: ["app"],
   props: {
     type: {
       type: Number,
       default: 0
     },
-    valueIndex: Number,
-    cardIndex:Number,
+    cardIndex: Number,
+    index: Number,
     item: {
       type: Object,
       default() {
@@ -43,31 +49,33 @@ export default {
   },
   data() {
     return {
-      test:"name"
+      test: "name"
     };
-    
   },
   computed: {
-
+    ...mapState({
+      sku_card: state => state.goods_create.sku_card
+    })
   },
   methods: {
-    ...mapMutations(["delSkuValue","updateSkuValue"]),
-    inputChange(e){
-      console.log(e.target.value)
+    ...mapMutations(["delSkuValue", "updateSkuValue"]),
+    inputChange(e) {
+      console.log(e.target.value);
     },
-    vModel(key,value){
+    vModel(key, value) {
       this.updateSkuValue({
         cardIndex: this.cardIndex,
-        valueIndex:this.index,
+        valueIndex: this.index,
         key,
         value
-      })
+      });
     },
     //选择图片
-    chooseImage(){
-      this.app.shooseImage((res)=>{
-        console.log(res)
-      })
+    chooseImage() {
+      this.app.chooseImage(res => {
+        this.vModel("image", res[0].url);
+        console.log(res[0].url);
+      }, 1);
     }
   },
   mounted() {

@@ -249,4 +249,7 @@ export default {
   padding: 20px;
   background-color: #fff;
 }
+.el-aside,.el-footer{
+  line-height: 1;
+}
 </style>

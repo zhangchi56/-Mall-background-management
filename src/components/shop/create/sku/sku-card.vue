@@ -46,7 +46,7 @@
           :type="item.type"
           v-for="(item2, index2) in list"
           :key="index2"
-          :valueIndex="index2"
+          :index="index2"
           :cardIndex="cardIndex"
           :item="item2"
           v-dragging="{ item: item2, list: list, group:`skuItem${index}`  }"
@@ -107,7 +107,13 @@ export default {
         });
       }
     });
-  }
+
+    //this
+    // console.log(this.index)
+    console.log(this.item)
+
+
+  },
 };
 </script>
 
