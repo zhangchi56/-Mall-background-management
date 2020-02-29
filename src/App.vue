@@ -1,56 +1,68 @@
 <template>
   <div id="app">
-    <router-view />
-    <image-dialog ref="imageDialog" :max='maxChooseImage'></image-dialog>
+    
+	<router-view></router-view>
+	
+	<image-dialog ref="imageDialog" :max="maxChooseImage"></image-dialog>
+	
+	<skus-dialog ref="skusDialog"></skus-dialog>
+	
   </div>
 </template>
 
 <script>
-import imageDialog from "@/components/image/image-dialog.vue";
-
+import imageDialog from '@/components/image/image-dialog.vue';
+import skusDialog from '@/components/skus/skus-dialog.vue';
 export default {
-  name: "app",
-  provide() {
-    return {
-      app: this
-    };
-  },
-  data() {
-    return {
-      maxChooseImage: 9
-    };
-  },
-  components: {
-    imageDialog
-  },
-  methods: {
-    chooseImage(callback,max = 9){
-      this.maxChooseImage = max
-      this.$refs.imageDialog.chooseImage(callback)
-    }
-  },
-  
-};
+	components: {
+		imageDialog,
+		skusDialog
+	},
+	name: 'app',
+	// 依赖注入
+	provide(){
+		return {
+			app:this
+		}  
+	},
+	data() {
+		return {
+			maxChooseImage: 9
+		}
+	},
+	methods: {
+		// 选择图片
+		chooseImage(callback,max = 9) {
+			this.maxChooseImage = max
+			this.$refs.imageDialog.chooseImage(callback)
+		},
+		// 选择规格
+		chooseSkus(callback){
+			this.$refs.skusDialog.chooseSkus(callback)
+		}
+	},
+}
 </script>
 
-<style scope>
-@import "assets/css/base.css";
-
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+<style>
+::-webkit-scrollbar-track
+{
+  background: rgba(0,0,0,.1);
   border-radius: 0;
 }
 
-::-webkit-scrollbar {
+::-webkit-scrollbar
+{
   -webkit-appearance: none;
   width: 10px;
   height: 10px;
 }
 
-::-webkit-scrollbar-thumb {
-  cursor: pointer;
-  border-radius: 5px;
-  background: rgba(0, 0, 0, 0.25);
-  transition: color 0.2s ease;
+::-webkit-scrollbar-thumb
+{
+    cursor: pointer;
+    border-radius: 5px;
+    background: rgba(0,0,0,.25);
+    transition: color .2s ease;
 }
 </style>
