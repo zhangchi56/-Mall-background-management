@@ -35,9 +35,8 @@
 			</el-container>
 		  </el-container>
 		</el-container>
-		<div style="display:flex">
-
-    </div>
+		
+		
 		
 		<div slot="footer" class="dialog-footer">
 			<el-button @click="hide">取 消</el-button>

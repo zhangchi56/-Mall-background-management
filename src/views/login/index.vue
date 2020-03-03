@@ -27,8 +27,9 @@
 								</el-form-item>
 								<el-form-item>
 									<el-button type="primary" size="medium"
-									class="w-100" @click="submit">
-										立即登录
+									class="w-100" @click="submit"
+									:loading="loading">
+										{{loading? '登录中...' : '立即登录'}}
 									</el-button>
 								</el-form-item>
 							</el-form>
@@ -43,9 +44,11 @@
 </template>
 
 <script>
+	let ms = []
 	export default {
 		data() {
 			return {
+				loading:false,
 				form:{
 					username:"",
 					password:""
@@ -65,7 +68,21 @@
 				this.$refs.ruleForm.validate((e)=>{
 					if (!e) return;
 					// 提交表单
-					this.$router.push({name:'index'})
+					this.loading = true
+					this.axios.post('/admin/login',this.form).then(res=>{
+						// 存储到vuex
+						// 存储到本地存储
+						this.$store.commit('login',res.data.data)
+						// 生成后台菜单
+						this.$store.commit('createNavBar',res.data.data.tree)
+						// 成功提示
+						this.$message('登录成功')
+						this.loading = false
+						// 跳转后台首页
+						this.$router.push({name:'index'})
+					}).catch(err=>{
+						this.loading = false
+					})
 				})
 			}
 		},
