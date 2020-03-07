@@ -9,7 +9,7 @@
 在线预览：
 
 预览图：
-<img src="https://i.loli.net/2020/02/29/oIO5UfnqlGgzmQ8.gif" width=320/>
+<img src="/>
 
 
 ## 目录
@@ -33,9 +33,90 @@
 
 思路：提交表单验证，发送axios请求，获取后端返回的token，并用存储到vuex和本地存储sessionStorage
 
+```bash
+					// 提交表单
+					this.loading = true
+					this.axios.post('/admin/login',this.form).then(res=>{
+            let data = data
+						// 存储到vuex
+						// 存储到本地存储
+            this.$store.commit('login',data)
+            //存储权限规则
+            if(data.role && data.role.rules){
+              window.sessionStorage.setItem('rules',JSON.stringify(data.role.rules))
+            }
+            window.sessionStorage.setItem()
+						// 生成后台菜单
+						this.$store.commit('createNavBar',data.tree)
+						// 成功提示
+						this.$message('登录成功')
+						this.loading = false
+						// 跳转后台首页
+						this.$router.push({name:'index'})
+					}).catch(err=>{
+						this.loading = false
+					})
+```
+
+vuex
+```bash
+		// 初始化用户信息
+		initUser(state){
+			let user = window.sessionStorage.getItem('user')
+			if(user){
+				state.user = JSON.parse(user)
+				state.token = state.user.token
+			}
+		},
+		// 登录
+		login(state,user){
+			// 保存登录状态
+			state.user = user
+			state.token = user.token
+			// 存储到本地存储
+			window.sessionStorage.setItem('user',JSON.stringify(state.user))
+			window.sessionStorage.setItem('token',state.token)
+		},
+		// 退出登录
+		logout(state){
+			// 清除状态
+			state.user = {}
+			state.token = false
+			// 清除本地存储
+			window.sessionStorage.clear()
+		}
+```
+
 ## 全局响应拦截
 
+好处是可以将相同的响应错误做全局处理
+
 在main.js中
+
+请求拦截
+```bash
+// 添加请求拦截器
+axios.interceptors.request.use((config)=>{
+	// 添加header头的token
+	let token = window.sessionStorage.getItem('token')
+	if(config.token === true){
+		config.headers['token'] = token
+	}
+	// 显示loading
+	if(config.loading === true){
+		showLoading()
+	}
+	// 在发送请求之前做些什么
+	return config;
+}, (error)=> {
+	// 隐藏loading
+	hideLoading()
+	// 对请求错误做些什么
+	return Promise.reject(error);
+});
+```
+
+
 ```bash
 // 添加响应拦截器
 axios.interceptors.response.use((response)=>{
