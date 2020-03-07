@@ -2,7 +2,7 @@
 
 > 本项目以基于 [vue](https://vuejs.org) 和 [Element框架](https://element.eleme.cn/#/zh-CN) 开发的完整中型项目
 
-笔者会将开发过程中遇到的不熟的知识点进行整理
+笔者会将开发过程中遇到的重要知识点进行整理
 
 ## 在线预览
 
@@ -15,32 +15,56 @@
 ## 目录
 
 - [前端页面实现](#前端页面实现)
-- [页面实现](#分层架构)
-- [页面实现](#分层架构)
-- [页面实现](#分层架构)
-- [页面实现](#分层架构)
-- [前后交互实现](#前后交互实现)
-- [部署](#部署)
-- [常见问题](#常见问题)
+- [后续补充](#后续补充)
+- [前后端交互实现](#前后端交互实现)
+- [登录功能](#登录功能)
+- [全局响应拦截](#全局响应拦截)
+- [全局路由守卫](#全局路由守卫)
+- [权限菜单动态生成](#权限菜单动态生成)
+- [权限验证](#权限验证)
 
 ## 前端页面实现
 
+### 后续补充...
 
-- 过于依赖前端框架，导致如果重构进行框架切换时，需要重写所有业务逻辑并进行回归测试。
+## 前后端交互实现
 
-针对上面所遇到的问题，笔者学习了一些关于 DDD（领域驱动设计）、Clean Architecture 等知识，并收集了类似思想在前端方面的实践资料，形成了下面这种前端分层架构：
+## 登录功能
 
-<img src="https://i.loli.net/2020/02/29/5RhfH3BYMb9wIOs.png" width=600/>
+思路：提交表单验证，发送axios请求，获取后端返回的token，并用存储到vuex和本地存储sessionStorage
 
-其中 View 层想必大家都很了解，就不在这里介绍了，重点介绍下下面三个层的含义：
+## 全局响应拦截
 
-## 前后交互实现
+在main.js中
+```bash
+// 添加响应拦截器
+axios.interceptors.response.use((response)=>{
+	console.log('响应拦截器 成功');
+	// 隐藏loading
+	hideLoading()
+	// 对响应数据做点什么
+	return response;
+},(err)=> {
+	// 全局错误提示
+	if(err.response && err.response.data && err.response.data.errorCode){
+		Message.error(err.response.data.msg)
+	}
+	// 隐藏loading
+	hideLoading()
+	// 对响应错误做点什么
+	return Promise.reject(err);
+});
+```
 
-Services 层是用来对底层技术进行操作的，例如封装 AJAX 请求,操作浏览器 cookie、locaStorage、indexDB，操作 native 提供的能力（如调用摄像头等），以及建立 Websocket 与后端进行交互等。
+## 全局路由守卫
 
-其中 Services 层又可细分出 request 层和 translator 层， request 层主要是实现 Services 的大部分功能。而 translator 层主要用于清洗从服务端或客户端接口返回的数据：删除部分数据、修改属性名、转化部分数据等，一般可定义成纯函数形式。下面以本项目实际代码为例进行讲解。
+## 权限菜单动态生成
 
-从后端获取 quote 数据:
+## 权限验证
+
+
+
+
 
 
 
