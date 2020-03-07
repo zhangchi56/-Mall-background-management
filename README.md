@@ -1,6 +1,6 @@
 # 电商类后台管理系统
 
-> 本项目以基于 [vue](https://vuejs.org) 和 [element](https://element.eleme.cn/#/zh-CN) 开发的完整中型项目
+> 本项目以基于 [vue](https://vuejs.org) 和 [Element框架](https://element.eleme.cn/#/zh-CN) 开发的完整中型项目
 
 笔者会将开发过程中遇到的不熟的知识点进行整理
 
@@ -25,19 +25,6 @@
 
 ## 前端页面实现
 
-[react-clean-architecture](https://github.com/eduardomoroni/react-clean-architecture)
-
-[business-rules-package](https://github.com/fabriciomendonca/business-rules-package)
-
-[ddd-fe-demo](https://github.com/Vincedream/ddd-fe-demo)
-
-目前前端开发主要是以单页应用为主，当应用的业务逻辑足够复杂的时候，总会遇到类似下面的问题：
-
-- 业务逻辑过于集中在视图层，导致多平台无法共用本应该与平台无关的业务逻辑，例如一个产品需要维护 Mobile 和 PC 两端，或者同一个产品有 Web 和 React Native 两端；
-
-- 产品需要多人协作时，每个人的代码风格和对业务的理解不同，导致业务逻辑分布杂乱无章；
-
-- 对产品的理解停留在页面驱动层面，导致实现的技术模型与实际业务模型出入较大，当业务需求变动时，技术模型很容易被摧毁；
 
 - 过于依赖前端框架，导致如果重构进行框架切换时，需要重写所有业务逻辑并进行回归测试。
 
