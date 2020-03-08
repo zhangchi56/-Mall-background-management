@@ -77,6 +77,22 @@ Vue.use(VueDND)
 import $conf from "./common/config/config.js"
 Vue.prototype.$conf = $conf
 
+
+Vue.directive('auth',{
+	inserted(el,binding,vnode,oldVnode){
+		let user = window.sessionStorage.getItem('user')
+		user = user ? JSON.parse(user) : {}
+		if(!user.super){
+			let rules = user.ruleNames ? user.ruleNames : []
+			
+			let v = rules.find(item=> item === binding.value)
+			if(!v){
+				el.parentNode.removeChild(el)
+			}
+		}
+	}
+})
+
 Vue.config.productionTip = false
 
 new Vue({

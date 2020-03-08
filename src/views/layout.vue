@@ -50,7 +50,7 @@
 				
 			</el-aside>
 			<!-- 主布局 -->
-			<el-main class="bg-light" style="padding-bottom: 60px;position: relative;">
+			<el-main class="bg-light" style="padding-bottom: 60px;position: relative;" v-loading="loading">
 			
 				<!-- 面包屑导航 -->
 				<div class="border-bottom mb-3 bg-white" 
@@ -84,9 +84,15 @@
 	import { mapState } from 'vuex'
 	export default {
 		mixins:[common],
+		provide(){
+			return {
+				layout:this
+			}
+		},
 		data() {
 			return {
-				bran:[]
+				bran:[],
+				loading:false
 			}
 		},
 		created() {
@@ -128,6 +134,14 @@
 			}
 		},
 		methods: {
+			// 显示loading
+			showLoading(){
+				this.loading = true
+			},
+			// 隐藏loading
+			hideLoading(){
+				this.loading = false
+			},
 		  __initNavBar(){
 			let r = localStorage.getItem('navActive')  
 			if (r) {
