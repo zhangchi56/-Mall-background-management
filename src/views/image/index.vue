@@ -158,9 +158,10 @@
 </template>
 
 <script>
-	import albumItem from '@/components/image/album-item.vue';
+  import albumItem from '@/components/image/album-item.vue';
+  
 	export default {
-		inject:['layout'],
+    inject:['layout'],
 		components: {
 			albumItem
 		},
@@ -213,9 +214,11 @@
 				}
 				return `/admin/imageclass/${this.image_class_id}/image/${this.currentPage}?limit=${this.pageSize}&order=${this.searchForm.order}${other}`
 			}
-		},
+    },
+    
 		created() {
-			this.__init()
+      this.__init()
+      console.log(this.albums)
 		},
 		methods: {
 			// 取消选中

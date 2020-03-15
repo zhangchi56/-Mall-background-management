@@ -119,8 +119,10 @@
 </template>
 
 <script>
-	import buttonSearch from "@/components/common/button-search.vue"
+  import buttonSearch from "@/components/common/button-search.vue"
+  import common from '@/common/mixins/common.js'
 	export default {
+    mixins:[common],
 		components: {
 			buttonSearch
 		},
